@@ -20,10 +20,19 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+# Preforking Server
 gem 'unicorn'
+
+# Postgres Database
 gem 'pg'
+
+# File Uploads
 gem 'carrierwave'
 
+# More memory-efficient ImageMagick gem than RMagick
+gem 'mini_magick'
+
+# Because Bootstrap
 gem 'bootstrap-sass'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

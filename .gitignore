@@ -32,3 +32,4 @@ tmtags
 .sass-cache/
 public/assets/
 .env*
+public/uploads/
