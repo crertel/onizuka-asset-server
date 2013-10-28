@@ -23,13 +23,18 @@ Asset types are:
 * Manifest (.json)
 
 The server provides a web page which lists all active assets in a tabular form,
-showing their name, filename, and type. Clicking on an entry brings you to a 
+showing their name, filename, and type. Clicking on an entry brings you to a
 page showing all of the fields for the asset, allowing you to update the file
 and set other fields.
 
 The server also provides routes for interacting with assets.
 
-GET | /assets      | Returns a JSON blob with an array of all asset names, types, and IDs.
-GET | /asssets/:id | Returns a JSON blob of the asset fields (the metadata from above).
-GET | /files/:id   | Returns the actual asset content.
+GET /assets
+Returns a JSON blob with an array of all asset names, types, and IDs.
+
+GET /asssets/:id
+Returns a JSON blob of the asset fields (the metadata from above).
+
+GET /files/:id
+Returns the actual asset content.
 
