@@ -4,13 +4,17 @@ class AssetsController < ApplicationController
 
   def index
     @assets = Asset.all
+    respond_to do |format|
+      format.html
+      format.json { render json: @assets }
+    end
   end
 
 
   def show
     respond_to do |format|
       format.html
-      format.json { render json: @asset.to_json }
+      format.json { render json: @asset }
     end
   end
 

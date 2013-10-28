@@ -1,16 +1,10 @@
 OnizukaAssetServer::Application.routes.draw do
 
-  get "assets/index"
-  get "assets/get"
-  get "assets/new"
-  get "assets/create"
-  get "assets/edit"
-  get "assets/update"
-  get "assets/delete"
   resources :assets
 
   get '/files/:id',
-      to: 'files#get'
+      to: 'files#get',
+      as: 'file'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
