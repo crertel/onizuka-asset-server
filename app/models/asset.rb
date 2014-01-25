@@ -10,7 +10,7 @@ class Asset < ActiveRecord::Base
   validates :content_type,  presence: true
   validates :file_size,     presence: true
 
-  before_save :update_asset_metadata
+  before_validation :update_asset_metadata
 
   # Convenience methods for ActiveRecord attributes must be aliased
   # using alias_attribute, rather than alias_method.
@@ -31,7 +31,7 @@ private #######################################################################
 
   # Set the content_type and file_size from our asset if necessary.
   def update_asset_metadata
-    if asset.present? and asset_changed?
+    if self.asset.present? and self.asset_changed?
       self.content_type = self.file.content_type
       self.file_size    = self.file.size
     end

@@ -1,0 +1,2 @@
+class ImageAsset < Asset
+end
