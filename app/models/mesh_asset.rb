@@ -1,0 +1,2 @@
+class MeshAsset < Asset
+end

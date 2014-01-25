@@ -1,0 +1,2 @@
+class MarkupAsset < Asset
+end
