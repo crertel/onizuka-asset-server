@@ -35,6 +35,16 @@ class Asset < ActiveRecord::Base
   end
 
 
+  def full_path
+    self.asset.file.path
+  end
+
+
+  def checksum
+    Digest::MD5.file(self.full_path).to_s
+  end
+
+
   def capture_file_name
     self.file_name = self.file.filename if self.file.present?
   end
@@ -53,7 +63,9 @@ class Asset < ActiveRecord::Base
 
   def generate_slug_name
     if self.slug_name.blank?
-      self.slug_name = self.file.filename.parameterize.underscore
+      # Get the filename, then remove its extension before snake_casing.
+      fname = self.file.filename
+      self.slug_name = fname.chomp(File.extname(fname)).parameterize.underscore
     end
   end
 
