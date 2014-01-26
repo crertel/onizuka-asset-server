@@ -28,6 +28,7 @@ private #######################################################################
   def split_tags(params)
     return params unless params.key?(:tags)
     params[:tags] = (params[:tags] || "").split(/[\s,\n]+/).uniq
+    params
   end
 
 

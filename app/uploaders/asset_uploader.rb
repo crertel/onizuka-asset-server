@@ -11,10 +11,10 @@ class AssetUploader < CarrierWave::Uploader::Base
 
   attr_reader :custom_filename
 
-  def initialize(custom_filename: nil)
-    @custom_filename  = custom_filename
-    super() # Parens necessary to not pass arguments
-  end
+  # def initialize(custom_filename: nil)
+  #   @custom_filename  = custom_filename
+  #   super() # Parens necessary to not pass arguments
+  # end
 
 
   def store_path(for_file = filename)

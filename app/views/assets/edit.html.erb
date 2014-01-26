@@ -1,6 +1,6 @@
 <h1>Editing asset</h1>
 
-<%= form_for(@asset) do |f| %>
+<%= form_for(@asset, as: 'asset', url: { controller: 'assets', action: 'update'}) do |f| %>
 
   <% if @asset.errors.any? %>
     <div id="error_explanation">

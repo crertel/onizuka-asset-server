@@ -1,6 +1,4 @@
 class AssetsController < ApplicationController
-  before_action :set_asset, only: [:show, :edit, :update, :destroy]
-
 
   def index
     @assets = Asset.all
@@ -12,6 +10,7 @@ class AssetsController < ApplicationController
 
 
   def show
+    @asset = Asset.find(params[:id])
     respond_to do |format|
       format.html
       format.json { render json: @asset }
@@ -20,56 +19,48 @@ class AssetsController < ApplicationController
 
 
   def new
-    @asset = Asset.new
+    raise NotImplementedError.new
+    # @asset = Asset.new
   end
 
 
-  def edit
+  def edit(asset: nil)
+    @asset = asset || Asset.find(params[:id])
   end
 
 
   def create
-    @asset = Asset.new(asset_params)
+    raise NotImplementedError.new
+    # @asset = Asset.new(asset_params)
 
-    if @asset.save
-      redirect_to @asset, notice: 'Asset was successfully created.'
-    else
-      render action: 'new'
-    end
+    # if @asset.save
+    #   redirect_to @asset, notice: 'Asset was successfully created.'
+    # else
+    #   render action: 'new'
+    # end
   end
 
 
   def update
     req = AssetUpdateRequest.new(params: params)
-    AssetUpdate.new(listener: self, request: req)
+    AssetUpdate.new(listener: self, request: req).apply
   end
 
 
-  def update_succeeded
-    redirect_to @asset, notice: 'Asset was successfully updated.'
+  def update_succeeded(asset: , message: )
+    redirect_to asset, notice: message
   end
 
 
-  def update_failed
-    edit
+  def update_failed(asset: , message: '')
+    edit(asset: asset)
   end
 
 
   def destroy
+    @asset = Asset.find(params[:id])
     @asset.destroy
     redirect_to assets_url, notice: 'Asset was successfully destroyed.'
   end
 
-
-  private
-
-
-    def set_asset
-      @asset = Asset.find(params[:id])
-    end
-
-
-    def asset_params
-      params[:asset]
-    end
 end
