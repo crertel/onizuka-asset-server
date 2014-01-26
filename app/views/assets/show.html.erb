@@ -1,4 +1,21 @@
-<p id="notice"><%= notice %></p>
-
-<%= link_to 'Edit', edit_asset_path(@asset) %> |
-<%= link_to 'Back', assets_path %>
+<div class="row" ng-controller="viewerCtrl">
+	<div class="col-sm-12">
+		<p id="notice"><%= notice %></p>		
+	</div>
+	<div class="col-sm-12">
+		<h1><%= @asset.display_name %></h1>
+		<dl class="dl-horizontal">
+			<dt>Name</dt><dd><%= @asset.display_name %></dd>
+			<dt>Type</dt><dd><%= @asset.type %></dd>
+			<dt>Tags</dt><dd>
+				<!-- <%= @asset.tags %> -->
+			</dd>
+			<dt>Hash</dt><dd></dd>
+			<dt>Preview</dt><dd class="preview" max-height <%= @asset.type %>-viewer location="<%= @asset.relative_path %>" asset-id="<%= @asset.id %>"></dd>
+		</dl>
+	</div>
+	<div class="col-sm-12">
+		<%= link_to 'Edit', edit_asset_path(@asset) %> |
+		<%= link_to 'Back', assets_path %>
+	</div>
+</div>

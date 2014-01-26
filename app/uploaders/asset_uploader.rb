@@ -25,7 +25,7 @@ class AssetUploader < CarrierWave::Uploader::Base
 
 
   def script_extensions
-    %w{lua js rb}
+    %w{lua js rb frag}
   end
 
 
