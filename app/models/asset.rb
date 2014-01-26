@@ -31,9 +31,7 @@ class Asset < ActiveRecord::Base
 
 
   def relative_path
-    Pathname.new(asset.file.path).
-      relative_path_from(Rails.public_path).
-      to_s
+    "/#{Pathname.new(asset.file.path).relative_path_from(Rails.public_path)}"
   end
 
 
