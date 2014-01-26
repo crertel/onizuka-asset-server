@@ -1,6 +1,60 @@
 <h1>Editing asset</h1>
 
-<%= render 'form' %>
+<%= form_for(@asset) do |f| %>
+
+  <% if @asset.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@asset.errors.count, "error") %> prohibited this asset from being saved:</h2>
+
+      <ul>
+      <% @asset.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div>
+    <%= f.label :display_name %>
+    <%= f.text_field :display_name %>
+  </div>
+
+
+  <div>
+    <%= f.label :slug_name %>
+    <%= f.text_field :slug_name %>
+  </div>
+
+
+  <div>
+    <%= f.label :asset, 'Asset File' %>
+    <%= f.file_field :asset %>
+  </div>
+
+
+  <div>
+    <%= f.label :content_type %>
+    <p>Will attempt to set automatically, only override if automatic result is undesirable.</p>
+    <%= f.text_field :content_type %>
+  </div>
+
+
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+
+
+  <div>
+    <%= f.label :tags %>
+    <%= f.text_area :tags, value: f.object.tags.join(', ') %>
+  </div>
+
+  <%= f.submit 'Update Asset' %>
+
+<% end %>
+
 
 <%= link_to 'Show', @asset %> |
 <%= link_to 'Back', assets_path %>

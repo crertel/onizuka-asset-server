@@ -9,6 +9,20 @@ class AssetUploader < CarrierWave::Uploader::Base
   # Sets MIME Types as best it can.
   process :set_content_type
 
+  attr_reader :custom_filename
+
+  def initialize(custom_filename: nil)
+    @custom_filename  = custom_filename
+    super() # Parens necessary to not pass arguments
+  end
+
+
+  def store_path(for_file = filename)
+    for_file = custom_filename unless custom_filename.nil?
+    File.join([store_dir, full_filename(for_file)].compact)
+  end
+
+
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end

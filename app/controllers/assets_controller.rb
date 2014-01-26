@@ -40,11 +40,18 @@ class AssetsController < ApplicationController
 
 
   def update
-    if @asset.update(asset_params)
-      redirect_to @asset, notice: 'Asset was successfully updated.'
-    else
-      render action: 'edit'
-    end
+    req = AssetUpdateRequest.new(params: params)
+    AssetUpdate.new(listener: self, request: req)
+  end
+
+
+  def update_succeeded
+    redirect_to @asset, notice: 'Asset was successfully updated.'
+  end
+
+
+  def update_failed
+    edit
   end
 
 
