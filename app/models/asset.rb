@@ -23,7 +23,19 @@ class Asset < ActiveRecord::Base
 
 
   def file_name
-    asset.present? ? asset.filename : ""
+    asset.present? ? asset.file.filename : ""
+  end
+
+
+  def open_file(opts: {})
+    File.open(asset.file.file, opts)
+  end
+
+
+  def relative_path
+    Pathname.new(asset.file.path).
+      relative_path_from(Rails.public_path).
+      to_s
   end
 
 
