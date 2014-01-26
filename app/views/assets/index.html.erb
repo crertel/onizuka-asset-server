@@ -1,25 +1,30 @@
-<h1>Listing assets</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<h1 class="col-xs-12">
+  Listing assets <%= link_to 'New Asset', new_asset_path, class: "btn btn-info"  %>
+</h1>
+<div class="col-xs-12">
+  <div class="list-group">
     <% @assets.each do |asset| %>
-      <tr>
-        <td><%= link_to 'Show', asset %></td>
-        <td><%= link_to 'Edit', edit_asset_path(asset) %></td>
-        <td><%= link_to 'Destroy', asset, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <%= link_to asset, class: "list-group-item"  do %>
+        <h4><%= asset.display_name %></h4>
+        <p><i><%= asset.content_type %></i></p>
+        <p><%= asset.description %></p>
+        <p>
+          <% asset.tags.each do |tag| %>
+            <span class="label label-default">
+              #<%= tag %>
+            </span>
+          <% end %>
+        </p>
+
+      <% end %>
+
+      <div class="btn-group corner-btns">
+        <%= link_to 'Show', asset, class: "btn btn-default" %>
+        <%= link_to 'Edit', edit_asset_path(asset), class: "btn btn-default" %>
+        <%= link_to 'Destroy', asset, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default" %>
+      </div>
+
     <% end %>
-  </tbody>
-</table>
 
-<br>
-
-<%= link_to 'New Asset', new_asset_path %>
+  </div>
+</div>

@@ -1,13 +1,18 @@
 #
 # @abstract Description
-#
+#, 'audioPlayer'
 onizuka = angular.module 'onizuka', ['ui.bootstrap','ui.ace','onizukaControllers', 'onizukaDirectives']
 # onizuka.config []
 
 onizukaControllers = angular.module 'onizukaControllers', []
 
 onizukaControllers.controller 'viewerCtrl', ($scope) ->
-
+	# $scope.playlist1 = []
+	# $scope.playlist1 = [
+	# 	{
+	# 		src : 'http://0.0.0.0:5000/uploads/sound_asset/asset/4/sample-1.wav'
+	# 	}
+	# ]
 
 
 onizukaDirectives = angular.module 'onizukaDirectives', ['ngAnimate']
@@ -18,12 +23,12 @@ onizukaDirectives.directive 'maxHeight', ($window, $timeout)->
 
 		maxArea = ()->
 			maxHeight = $($window).height()
-			containerHeight = maxHeight - elem.offset().top
-			elem.height containerHeight
+			# containerHeight = maxHeight - elem.offset().top
+			elem.height maxHeight
 
 		$timeout ()->
 			maxArea()
-		, 1000
+		, 0
 
 		Bacon.fromEventTarget($window, 'resize').debounce(250).onValue ()->
 			maxArea()
@@ -39,7 +44,7 @@ onizukaDirectives.directive 'imageassetViewer', ->
 
 onizukaDirectives.directive 'markupassetViewer', ->
 	restrict : "A"
-	template : "<div onizuka-ace></div>"
+	template : "<div max-height onizuka-ace></div>"
 	scope :
 		location : '@'
 		assetId : '@'
@@ -50,7 +55,7 @@ onizukaDirectives.directive 'markupassetViewer', ->
 
 onizukaDirectives.directive 'scriptassetViewer', ($http)->
 	restrict : "A"
-	template : "<div onizuka-ace></div>"
+	template : "<div max-height onizuka-ace></div>"
 	scope :
 		location : '@'
 		assetId : '@'
@@ -165,11 +170,24 @@ onizukaDirectives.directive 'meshassetViewer', ($timeout, $document, $window)->
 			requestAnimationFrame animate
 			render()
 
+		maxArea = ()->
+			maxHeight = $($window).height()
+			# containerHeight = maxHeight - elem.offset().top
+			elem.height maxHeight
+
+		$timeout ()->
+			maxArea()
+		, 500
+
+		Bacon.fromEventTarget($window, 'resize').debounce(250).onValue ()->
+			maxArea()
 
 		$timeout ()->
 			init(elem)
 			animate()
 		, 1100
 
+# cheating on the sound for now
 onizukaDirectives.directive 'soundassetViewer', ->
 	restrict : "A"
+	template : '<audio controls><source src="/uploads/sound_asset/asset/4/U2_One.ogg" type="audio/wav"></audio>'

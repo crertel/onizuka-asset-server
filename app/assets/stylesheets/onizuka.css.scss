@@ -1,5 +1,17 @@
 body{
 	padding-top: 50px;
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.corner-btns{
+	float: right;
+	margin-top: -2.4em;
+}
+.onizuka{
+	margin-bottom: 3em;
+
+	dt, dd{
+		line-height: 2em;
+	}
 }
 .dl-horizontal dt{
 	width: 10%;
@@ -14,5 +26,9 @@ body{
 }
 
 .ace_editor{
-	min-height: 500px;
+	height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
