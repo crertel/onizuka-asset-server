@@ -1,60 +1,81 @@
-<h1>Editing asset</h1>
+<div class="row">
+  <div class="col-sm-12">
+    <h1>Editing asset</h1>
 
-<%= form_for(@asset, as: 'asset', url: { controller: 'assets', action: 'update'}) do |f| %>
+    <%= form_for(@asset, as: 'asset', url: { controller: 'assets', action: 'update'}, html: {class: 'form-horizontal'}) do |f| %>
 
-  <% if @asset.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@asset.errors.count, "error") %> prohibited this asset from being saved:</h2>
+      <% if @asset.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@asset.errors.count, "error") %> prohibited this asset from being saved:</h2>
 
-      <ul>
-      <% @asset.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+          <ul>
+          <% @asset.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
+
+
+      <div class="form-group">
+        <%= f.label :display_name, class: 'col-sm-2 control-label' %>
+        <div class="col-sm-4">
+          <%= f.text_field :display_name, class: 'form-control' %>          
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <%= f.label :slug_name, class: 'col-sm-2 control-label' %>
+        <div class="col-sm-4">
+          <%= f.text_field :slug_name, class: 'form-control' %>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <%= f.label :asset, 'Asset File', class: 'col-sm-2 control-label' %>
+        <div class="col-sm-4">
+          <%= f.file_field :asset, class: 'form-control' %>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <%= f.label :content_type, class: 'col-sm-2 control-label' %>
+        <div class="col-sm-4">
+          <%= f.text_field :content_type, class: 'form-control' %>
+          <p><i>Will attempt to set automatically, only override if automatic result is undesirable.</i></p>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <%= f.label :description, class: 'col-sm-2 control-label' %>
+        <div class="col-sm-4">
+          <%= f.text_area :description, class: 'form-control' %>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <%= f.label :tags, class: 'col-sm-2 control-label' %>
+        <div class="col-sm-4">
+          <%= f.text_area :tags, value: f.object.tags.join(', '), class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <%= f.submit 'Update Asset', class: 'btn btn-default pull-right' %>
+      </div>
+
+    <% end %>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+
+      <%= link_to 'Show', @asset %> |
+      <%= link_to 'Back', assets_path %>
     </div>
-  <% end %>
-
-
-  <div>
-    <%= f.label :display_name %>
-    <%= f.text_field :display_name %>
   </div>
-
-
-  <div>
-    <%= f.label :slug_name %>
-    <%= f.text_field :slug_name %>
-  </div>
-
-
-  <div>
-    <%= f.label :asset, 'Asset File' %>
-    <%= f.file_field :asset %>
-  </div>
-
-
-  <div>
-    <%= f.label :content_type %>
-    <p>Will attempt to set automatically, only override if automatic result is undesirable.</p>
-    <%= f.text_field :content_type %>
-  </div>
-
-
-  <div>
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
-
-
-  <div>
-    <%= f.label :tags %>
-    <%= f.text_area :tags, value: f.object.tags.join(', ') %>
-  </div>
-
-  <%= f.submit 'Update Asset' %>
-
-<% end %>
-
-
-<%= link_to 'Show', @asset %> |
-<%= link_to 'Back', assets_path %>
+</div>

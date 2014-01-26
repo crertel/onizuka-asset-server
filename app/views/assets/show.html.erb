@@ -10,19 +10,19 @@
 			<dt>Description</dt><dd><%= @asset.description %></dd>
 			<dt>Tags</dt><dd>
 				<% @asset.tags.each do |tag| %>
-					<span class="label label-default">
+					<span class="label label-default tags">
 						#<%= tag %>
 					</span>
 				<% end %>
 			</dd>
-			<dt>Re-upload</dt><dd>
+<!-- 			<dt>Re-upload</dt><dd>
 				<button type="button" class="btn btn-primary">Load New</button>
-			</dd>
+			</dd> -->
 			<dt>Preview</dt><dd class="preview" <%= @asset.type %>-viewer location="<%= @asset.relative_path %>" asset-id="<%= @asset.id %>">
 			</dd>
 			<dt>Created at</dt><dd><%= @asset.created_at %></dd>
 			<dt>Updated at</dt><dd><%= @asset.updated_at %></dd>
-			<dt>Hash</dt><dd></dd>
+			<dt>Hash (md5)</dt><dd><%= @asset.checksum %></dd>
 		</dl>
 	</div>
 	<div class="col-sm-12">
