@@ -13,7 +13,6 @@ class AssetUpdate
 
   def apply
     reject and return if asset == :not_found
-
     update_asset_attributes ? accept : reject
   end
 
@@ -22,13 +21,18 @@ class AssetUpdate
 private #######################################################################
 
 
-  def accept
+  def update_asset_attributes
+    asset.update_attributes(asset_attributes)
+  end
 
+
+  def accept
+    listener.update_succeeded(asset: asset, message: 'Asset was successfully updated.')
   end
 
 
   def reject
-
+    listener.update_failed(asset: asset, message: '')
   end
 
 end

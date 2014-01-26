@@ -42,3 +42,10 @@ gem 'awesome_print'
 
 # As opposed to JBuilder or RABL
 gem 'active_model_serializers'
+
+# Some development-env niceties.
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'quiet_assets'
+end
