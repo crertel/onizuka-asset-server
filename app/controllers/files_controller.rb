@@ -1,6 +1,7 @@
 class FilesController < ApplicationController
 
   def get
+    puts "ID or Name: #{params[:id_or_name]}"
     FileRetrieval.new(self, params).apply
   end
 

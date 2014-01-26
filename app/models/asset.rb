@@ -9,8 +9,11 @@ class Asset < ActiveRecord::Base
   validates :display_name,  presence: true
   validates :content_type,  presence: true
   validates :file_size,     presence: true
+  validates :slug_name,     presence: true
+  validates :file_name,     presence: true
 
   before_validation :update_asset_metadata
+  before_validation :generate_slug_name, :if => :new_record?
 
   # Convenience methods for ActiveRecord attributes must be aliased
   # using alias_attribute, rather than alias_method.
@@ -19,11 +22,6 @@ class Asset < ActiveRecord::Base
   # Provide a shortcut into the CarrierWave::SanitizedFile for convenience.
   def file
     asset.present? ? asset.file : nil
-  end
-
-
-  def file_name
-    asset.present? ? asset.file.filename : ""
   end
 
 
@@ -39,14 +37,36 @@ class Asset < ActiveRecord::Base
   end
 
 
+  def capture_file_name
+    self.file_name = self.file.filename if self.file.present?
+  end
+
+
+  def capture_file_size
+    self.file_size = self.file.size
+  end
+
+
+  def capture_content_type
+    self.content_type = self.file.content_type
+    self.content_type = "application/text" if self.content_type.blank?
+  end
+
+
+  def generate_slug_name
+    if self.slug_name.blank?
+      self.slug_name = self.file.filename.parameterize.underscore
+    end
+  end
+
 private #######################################################################
 
   # Set the content_type and file_size from our asset if necessary.
   def update_asset_metadata
     if self.asset.present? and self.asset_changed?
-      self.content_type = self.file.content_type
-      self.content_type = "application/text" if self.content_type.blank?
-      self.file_size    = self.file.size
+      capture_content_type
+      capture_file_size
+      capture_file_name
     end
   end
 

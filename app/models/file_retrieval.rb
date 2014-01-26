@@ -4,7 +4,8 @@ class FileRetrieval
 
   def initialize(listener, params)
     @listener = listener
-    @asset_id = params.fetch(:id)
+    policy = FileLookupPolicy.new(identifier: params.fetch(:id_or_name))
+    @asset_id = policy.asset_id
   end
 
 
@@ -31,8 +32,10 @@ private #######################################################################
 
 
   def find_asset
-    @asset = Asset.where(id: asset_id).first
-    return failure("Asset with ID '#{asset_id}' not found.") if asset.nil?
+    @asset    = :not_found if asset_id == :not_found
+    @asset  ||= Asset.where(id: asset_id).first
+    @asset  ||= :not_found
+    return failure("Asset with ID '#{asset_id}' not found.") if asset == :not_found
     return true
   end
 

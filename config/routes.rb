@@ -2,9 +2,10 @@ OnizukaAssetServer::Application.routes.draw do
 
   resources :assets
 
-  get '/files/:id',
+  get '/files/:id_or_name',
       to: 'files#get',
-      as: 'file'
+      as: 'file',
+      constraints: { id_or_name: /.+/ }
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
