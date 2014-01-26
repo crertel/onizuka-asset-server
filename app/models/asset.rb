@@ -33,6 +33,7 @@ private #######################################################################
   def update_asset_metadata
     if self.asset.present? and self.asset_changed?
       self.content_type = self.file.content_type
+      self.content_type = "application/text" if self.content_type.blank?
       self.file_size    = self.file.size
     end
   end
