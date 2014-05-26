@@ -11,6 +11,21 @@
     </div>
   <% end %>
 
+  <div>
+      <p>
+        <%= f.label :display_name %> <br>
+        <%= f.text_field :display_name %>
+      </p>
+      <p>
+        <%= f.file_field :asset %>
+      </p>
+      <p>
+      <%= f.label :description %> <br>
+      <%= f.text_field :description %>
+      </p>
+
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

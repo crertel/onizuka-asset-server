@@ -19,8 +19,8 @@ class AssetsController < ApplicationController
 
 
   def new
-    raise NotImplementedError.new
-    # @asset = Asset.new
+    # raise NotImplementedError.new
+    @asset = Asset.new
   end
 
 
@@ -30,14 +30,15 @@ class AssetsController < ApplicationController
 
 
   def create
-    raise NotImplementedError.new
-    # @asset = Asset.new(asset_params)
+#    raise NotImplementedError.new
+   # @asset = Asset.new(params.permit(:display_name, :content_type, :description))
+    @asset = Asset.new(params[:asset])
 
-    # if @asset.save
-    #   redirect_to @asset, notice: 'Asset was successfully created.'
-    # else
-    #   render action: 'new'
-    # end
+    if @asset.save
+       redirect_to @asset, notice: 'Asset was successfully created.'
+    else
+       render action: 'new'
+    end
   end
 
 

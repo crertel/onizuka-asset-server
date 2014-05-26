@@ -26,5 +26,9 @@ module OnizukaAssetServer
     # config.i18n.default_locale = :de
 
     config.assets.prefix = "/web_assets/"
+    
+    # I did what I had to do...
+    config.action_controller.permit_all_parameters = true
+  
   end
 end
