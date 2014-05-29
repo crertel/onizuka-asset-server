@@ -22,7 +22,10 @@
 			</dd>
 			<dt>Created at</dt><dd><%= @asset.created_at %></dd>
 			<dt>Updated at</dt><dd><%= @asset.updated_at %></dd>
-			<dt>Hash (md5)</dt><dd><%= @asset.checksum %></dd>
+            <dt>Hash (md5)</dt><dd><%= @asset.checksum %></dd>
+            <dt>
+            <%= link_to "Download", "/files/#{@asset.id}"  %>
+            </dt>
 		</dl>
 	</div>
 	<div class="col-sm-12">
