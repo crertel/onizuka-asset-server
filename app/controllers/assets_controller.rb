@@ -30,8 +30,6 @@ class AssetsController < ApplicationController
 
 
   def create
-#    raise NotImplementedError.new
-   # @asset = Asset.new(params.permit(:display_name, :content_type, :description))
     @asset = Asset.new(params[:asset])
 
     if @asset.save

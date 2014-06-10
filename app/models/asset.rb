@@ -19,6 +19,12 @@ class Asset < ActiveRecord::Base
   # using alias_attribute, rather than alias_method.
   alias_attribute :mime_type, :content_type
 
+  def self.valid_types
+    [ImageAsset, MeshAsset, SoundAsset, MarkupAsset, ScriptAsset].map do |subclass|
+      [subclass.name.chomp('Asset'), subclass.name]
+    end
+  end
+
   # Provide a shortcut into the CarrierWave::SanitizedFile for convenience.
   def file
     asset.present? ? asset.file : nil
