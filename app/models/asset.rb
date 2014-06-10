@@ -25,6 +25,15 @@ class Asset < ActiveRecord::Base
     end
   end
 
+  def tags=( new_tags )
+    self[:tags] =  case new_tags        
+        when String
+            new_tags.split(/\s*,\s*/)
+        when Array
+            new_tags
+    end
+  end
+
   # Provide a shortcut into the CarrierWave::SanitizedFile for convenience.
   def file
     asset.present? ? asset.file : nil
