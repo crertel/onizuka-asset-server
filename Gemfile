@@ -43,6 +43,9 @@ gem 'awesome_print'
 # As opposed to JBuilder or RABL
 gem 'active_model_serializers'
 
+# Messaging so we can tell everyone when assets change
+gem 'bunny'
+
 # Some development-env niceties.
 group :development do
   gem 'better_errors'
