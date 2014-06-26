@@ -1,0 +1,9 @@
+bunny:
+  production: 
+  development:
+#    host: "localhost"
+#    port: 5672
+#    user: "asset 1"
+#    password: "lol"
+#    vhost: "/"
+
