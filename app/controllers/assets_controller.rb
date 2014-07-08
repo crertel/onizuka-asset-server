@@ -1,4 +1,5 @@
 class AssetsController < ApplicationController
+    require 'time'
 
   def index
     @assets = Asset.all
@@ -33,6 +34,9 @@ class AssetsController < ApplicationController
     @asset = Asset.new(params[:asset])
 
     if @asset.save
+        OnizukaAssetServer::Application.config.bunny.exchange.publish({:sid=>"", :time=>Time.now.utc.iso8601}.to_json,
+                                                                    :routing_key => "assets.added.#{@asset.id}",
+                                                                    :content_type=>"application/json")
        redirect_to @asset, notice: 'Asset was successfully created.'
     else
        render action: 'new'
@@ -47,6 +51,9 @@ class AssetsController < ApplicationController
 
 
   def update_succeeded(asset: , message: )
+    OnizukaAssetServer::Application.config.bunny.exchange.publish({:sid=>"", :time=>Time.now.utc.iso8601}.to_json,
+                                                                    :routing_key => "asset.updated.#{params[:id]}",
+                                                                    :content_type=>"application/json")
     redirect_to asset, notice: message
   end
 
@@ -57,8 +64,14 @@ class AssetsController < ApplicationController
 
 
   def destroy
-    @asset = Asset.find(params[:id])
+    @asset = Asset.find(params[:id])    
     @asset.destroy
+    
+    
+    OnizukaAssetServer::Application.config.bunny.exchange.publish({:sid=>"", :time=>Time.now.utc.iso8601}.to_json,
+                                                                    :routing_key => "asset.removed.#{params[:id]}",
+                                                                    :content_type=>"application/json")
+
     redirect_to assets_url, notice: 'Asset was successfully destroyed.'
   end
 

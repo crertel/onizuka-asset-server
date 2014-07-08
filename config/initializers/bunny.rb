@@ -5,4 +5,4 @@ bunny = Bunny.new(config[Rails.env])
 bunny.start
 channel = bunny.create_channel
 exchange = channel.topic("assets")
-OnizukaAssetServer::Application.config.bunny = Struct.new(:exchange, :connection).new({:exchange=>exchange, :connection=>bunny})
+OnizukaAssetServer::Application.config.bunny = Struct.new(:exchange, :connection).new(exchange, bunny)
