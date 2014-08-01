@@ -62,12 +62,10 @@ class AssetsController < ApplicationController
     edit(asset: asset)
   end
 
-
   def destroy
     @asset = Asset.find(params[:id])    
     @asset.destroy
-    
-    
+        
     OnizukaAssetServer::Application.config.bunny.exchange.publish({:sid=>"", :time=>Time.now.utc.iso8601}.to_json,
                                                                     :routing_key => "asset.removed.#{params[:id]}",
                                                                     :content_type=>"application/json")
